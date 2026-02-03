@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(timeout 3 npm run dev:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout:*)",
+      "Bash(magick:*)",
+      "Bash(convert:*)",
+      "Bash(pip show:*)",
+      "Bash(python remove_bg.py:*)",
+      "Bash(dir:*)"
+    ]
+  }
+}

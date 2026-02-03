@@ -1,0 +1,1288 @@
+/* ALIBI — 1940s Noir Detective Agency */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Source+Code+Pro:wght@400;500;600&display=swap');
+
+/* ═══════════════════════════════════════════════════════════
+   COLOR PALETTE
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --inkwell: #0a0a0c;
+  --smoke: #1a1a1f;
+  --brass: #d4a853;
+  --brass-dim: #a68632;
+  --parchment: #f5f0e6;
+  --parchment-dark: #e5dfd3;
+  --crime: #8b3a3a;
+  --crime-glow: #c45050;
+  --alibi: #4a6741;
+  --badge: #4a5568;
+  --shadow: rgba(0, 0, 0, 0.6);
+  
+  /* Typography */
+  --font-headline: 'Playfair Display', Georgia, serif;
+  --font-body: 'Crimson Pro', 'Libre Baskerville', serif;
+  --font-mono: 'Source Code Pro', 'Courier New', monospace;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════════ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--inkwell);
+  color: var(--parchment);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Venetian blind shadows */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0px,
+    transparent 30px,
+    rgba(0, 0, 0, 0.15) 30px,
+    rgba(0, 0, 0, 0.15) 33px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Vignette effect */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+#app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════ */
+h1 {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 2.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--parchment);
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 20px 0;
+  color: var(--brass);
+}
+
+h3 {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 20px 0 15px 0;
+  color: var(--brass);
+  border-bottom: 1px solid var(--badge);
+  padding-bottom: 8px;
+}
+
+p {
+  font-family: var(--font-body);
+  line-height: 1.8;
+  margin: 12px 0;
+  font-size: 1.1rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CASE FILE CONTAINER
+   ═══════════════════════════════════════════════════════════ */
+.case-file {
+  background: 
+    /* Paper texture noise */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"),
+    /* Base color */
+    linear-gradient(135deg, var(--smoke) 0%, #151518 100%);
+  border: 1px solid var(--badge);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 50px 40px;
+  position: relative;
+  margin: 20px 0;
+}
+
+/* Folder tab */
+.case-file::before {
+  content: 'CASE FILE #447';
+  position: absolute;
+  top: -20px;
+  left: 30px;
+  background: var(--smoke);
+  border: 1px solid var(--badge);
+  border-bottom: none;
+  padding: 8px 25px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--brass);
+}
+
+/* Classified stamp */
+.case-file::after {
+  content: 'CLASSIFIED';
+  position: absolute;
+  top: 60px;
+  right: 30px;
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 1rem;
+  color: var(--crime);
+  border: 3px solid var(--crime);
+  padding: 5px 15px;
+  transform: rotate(12deg);
+  opacity: 0.7;
+  letter-spacing: 0.15em;
+}
+
+/* Coffee ring stain */
+.case-file .coffee-stain {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(139, 90, 43, 0.08) 55%,
+    rgba(139, 90, 43, 0.04) 65%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════ */
+button {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 14px 35px;
+  border: 2px solid var(--brass);
+  background: transparent;
+  color: var(--brass);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--brass);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+button:hover {
+  color: var(--inkwell);
+  box-shadow: 0 0 20px rgba(212, 168, 83, 0.3);
+}
+
+button:hover::before {
+  left: 0;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--brass);
+  color: var(--inkwell);
+  border-color: var(--brass);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--parchment);
+  border-color: var(--parchment);
+  box-shadow: 0 0 30px rgba(212, 168, 83, 0.5);
+}
+
+.btn-primary::before {
+  background: var(--parchment);
+}
+
+.btn-secondary {
+  border-color: var(--badge);
+  color: var(--parchment);
+}
+
+.btn-secondary::before {
+  background: var(--badge);
+}
+
+.btn-danger {
+  border-color: var(--crime);
+  color: var(--crime);
+}
+
+.btn-danger:hover {
+  color: var(--parchment);
+}
+
+.btn-danger::before {
+  background: var(--crime);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+button:disabled::before {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INPUTS
+   ═══════════════════════════════════════════════════════════ */
+input[type="text"],
+textarea,
+select {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  padding: 15px;
+  border: 1px solid var(--badge);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--parchment);
+  width: 100%;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+}
+
+textarea {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.8;
+  /* Lined paper effect */
+  background: 
+    repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      rgba(212, 168, 83, 0.1) 31px,
+      rgba(212, 168, 83, 0.1) 32px
+    ),
+    rgba(0, 0, 0, 0.3);
+  padding-top: 16px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--brass);
+  box-shadow: 0 0 15px rgba(212, 168, 83, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--badge);
+  font-style: italic;
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4a853' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+}
+
+select option {
+  background: var(--smoke);
+  color: var(--parchment);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MENU SCREEN
+   ═══════════════════════════════════════════════════════════ */
+.menu {
+  text-align: center;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-screen {
+  margin-bottom: 50px;
+}
+
+.game-title {
+  font-family: var(--font-headline);
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  margin-bottom: 15px;
+  color: var(--parchment);
+  text-shadow: 
+    0 0 40px rgba(212, 168, 83, 0.3),
+    4px 4px 0 var(--inkwell);
+  position: relative;
+}
+
+/* Smoke animation on title */
+.game-title::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 40px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 168, 83, 0.1),
+    transparent
+  );
+  animation: smoke 4s ease-in-out infinite;
+}
+
+@keyframes smoke {
+  0%, 100% { opacity: 0.3; transform: translateX(-50%) scaleX(1); }
+  50% { opacity: 0.6; transform: translateX(-50%) scaleX(1.3); }
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--badge);
+  letter-spacing: 0.1em;
+}
+
+.menu-buttons {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.menu-buttons button {
+  min-width: 200px;
+}
+
+.game-info {
+  margin-top: 50px;
+  padding: 30px;
+  max-width: 500px;
+  border: 1px solid var(--badge);
+  background: rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+.game-info h3 {
+  text-align: center;
+  color: var(--parchment);
+}
+
+.game-info p {
+  font-size: 1rem;
+  color: var(--parchment-dark);
+  margin: 8px 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOBBY
+   ═══════════════════════════════════════════════════════════ */
+.room-code {
+  text-align: center;
+  margin: 30px 0;
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--brass);
+}
+
+.room-code span:first-child {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--badge);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.room-code .code {
+  font-family: var(--font-headline);
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: 0.4em;
+  color: var(--brass);
+  text-shadow: 0 0 30px rgba(212, 168, 83, 0.3);
+}
+
+.players-list {
+  margin: 40px 0;
+}
+
+/* Suspect silhouette cards */
+.player-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  margin: 12px 0;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--badge);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.player-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--badge);
+  transition: background 0.3s ease;
+}
+
+.player-card:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: var(--brass);
+}
+
+.player-card:hover::before {
+  background: var(--brass);
+}
+
+.avatar {
+  width: 60px;
+  height: 70px;
+  background: var(--parchment);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  position: relative;
+  border: 3px solid var(--parchment-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Polaroid style */
+.avatar::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: -3px;
+  right: -3px;
+  height: 20px;
+  background: var(--parchment);
+  border: 3px solid var(--parchment-dark);
+  border-top: none;
+}
+
+.player-name {
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--parchment);
+}
+
+.waiting-message {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-style: italic;
+  color: var(--badge);
+  margin: 30px 0;
+  font-size: 0.95rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CRIME REPORT
+   ═══════════════════════════════════════════════════════════ */
+.crime-report {
+  background: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"),
+    var(--parchment);
+  color: var(--inkwell);
+  padding: 35px;
+  margin: 25px 0;
+  border: none;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 100px rgba(139, 90, 43, 0.05);
+  position: relative;
+  filter: sepia(10%);
+}
+
+.crime-report::before {
+  content: 'INCIDENT REPORT';
+  position: absolute;
+  top: 15px;
+  left: 35px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--crime);
+  text-transform: uppercase;
+}
+
+.crime-report h2 {
+  color: var(--inkwell);
+  margin-top: 20px;
+  font-size: 1.6rem;
+}
+
+.description {
+  font-size: 1.15rem;
+  line-height: 2;
+  margin: 20px 0;
+  color: #2a2a2a;
+}
+
+.crime-details {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px solid var(--inkwell);
+}
+
+.crime-details div {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  margin: 10px 0;
+}
+
+.crime-details strong {
+  color: var(--crime);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GUILTY BRIEF
+   ═══════════════════════════════════════════════════════════ */
+.guilty-brief {
+  background: linear-gradient(135deg, var(--crime) 0%, #6b2a2a 100%);
+  color: var(--parchment);
+  padding: 40px;
+  text-align: center;
+  margin: 25px 0;
+  border: 3px solid var(--crime);
+  box-shadow: 
+    0 0 60px rgba(139, 58, 58, 0.3),
+    inset 0 0 100px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.guilty-brief::before {
+  content: '⚠';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  background: var(--smoke);
+  padding: 5px 15px;
+  border: 2px solid var(--crime);
+}
+
+.guilty-brief h2 {
+  color: var(--parchment);
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.warning {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-style: italic;
+  margin: 15px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ALIBI NOTEPAD
+   ═══════════════════════════════════════════════════════════ */
+.alibi-form {
+  margin: 30px 0;
+  position: relative;
+}
+
+/* Spiral binding */
+.alibi-form::before {
+  content: '○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--badge);
+}
+
+.instruction {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-style: italic;
+  margin: 20px 0;
+  text-align: center;
+  color: var(--parchment-dark);
+}
+
+.submitted {
+  text-align: center;
+  color: var(--alibi);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 25px 0;
+  letter-spacing: 0.1em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EVIDENCE CARDS
+   ═══════════════════════════════════════════════════════════ */
+.evidence-section {
+  margin: 30px 0;
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--crime);
+  position: relative;
+}
+
+.evidence-section h3 {
+  color: var(--crime);
+  border-color: var(--crime);
+}
+
+.evidence-card {
+  background: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"),
+    var(--parchment);
+  color: var(--inkwell);
+  padding: 20px 25px;
+  margin: 15px 0;
+  position: relative;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+  transform: rotate(-1deg);
+  animation: evidenceSlide 0.5s ease-out;
+}
+
+@keyframes evidenceSlide {
+  from {
+    opacity: 0;
+    transform: translateX(100px) rotate(5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(-1deg);
+  }
+}
+
+.evidence-card::before {
+  content: 'EVIDENCE';
+  position: absolute;
+  top: -8px;
+  left: 15px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--parchment);
+  background: var(--crime);
+  padding: 3px 10px;
+}
+
+.evidence-card::after {
+  content: '📎';
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  font-size: 1.5rem;
+}
+
+.evidence-card p {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INTERROGATION PHASE
+   ═══════════════════════════════════════════════════════════ */
+.interrogation {
+  max-height: none;
+}
+
+.questions-section,
+.my-questions,
+.all-questions {
+  margin: 35px 0;
+}
+
+.player-interrogation {
+  margin: 20px 0;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--badge);
+  transition: all 0.3s ease;
+}
+
+.player-interrogation:hover {
+  border-color: var(--brass);
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  margin-bottom: 15px;
+  border-left: 3px solid var(--brass);
+}
+
+.player-header span:first-child {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.alibi-preview {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--badge);
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ask-question {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.ask-question input {
+  flex: 1;
+  margin: 0;
+}
+
+.ask-question button {
+  padding: 15px 25px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Question cards - styled as transcript */
+.question-card {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  margin: 15px 0;
+  border-left: 3px solid var(--brass);
+}
+
+.question {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: var(--brass);
+}
+
+.answer-input {
+  display: flex;
+  gap: 12px;
+}
+
+.answer-input input {
+  flex: 1;
+  margin: 0;
+}
+
+.answer-input button {
+  padding: 15px 25px;
+  margin: 0;
+}
+
+/* Q&A Transcript */
+.qa-pair {
+  padding: 18px 20px;
+  margin: 12px 0;
+  background: rgba(0, 0, 0, 0.25);
+  border-left: 2px solid var(--badge);
+  position: relative;
+}
+
+.qa-pair::before {
+  content: '';
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--badge);
+}
+
+.qa-pair p:first-child {
+  font-family: var(--font-body);
+  color: var(--parchment);
+}
+
+.qa-pair strong {
+  color: var(--brass);
+}
+
+.answer {
+  margin-top: 10px;
+  margin-left: 25px;
+  padding-left: 15px;
+  border-left: 2px solid var(--alibi);
+  color: var(--parchment-dark);
+  font-style: italic;
+}
+
+.answer.pending {
+  border-color: var(--badge);
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VOTING / ACCUSATIONS
+   ═══════════════════════════════════════════════════════════ */
+.voting-form {
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--crime);
+}
+
+.voting-form label {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin: 25px 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--brass);
+}
+
+.voting-form label:first-child {
+  margin-top: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESULTS
+   ═══════════════════════════════════════════════════════════ */
+.results {
+  text-align: center;
+}
+
+.guilty-reveal {
+  margin: 40px 0;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(139, 58, 58, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%);
+  border: 2px solid var(--crime);
+  position: relative;
+  animation: revealPulse 2s ease-in-out infinite;
+}
+
+@keyframes revealPulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(139, 58, 58, 0.3); }
+  50% { box-shadow: 0 0 60px rgba(139, 58, 58, 0.5); }
+}
+
+.guilty-reveal h2 {
+  color: var(--parchment);
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+}
+
+.guilty-player {
+  display: inline-block;
+  font-family: var(--font-headline);
+  font-size: 2.5rem;
+  font-weight: 900;
+  padding: 25px 50px;
+  background: var(--crime);
+  color: var(--parchment);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+}
+
+/* GUILTY stamp effect */
+.guilty-player::after {
+  content: 'GUILTY';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  font-size: 3rem;
+  color: rgba(245, 240, 230, 0.15);
+  letter-spacing: 0.2em;
+  white-space: nowrap;
+}
+
+.scores {
+  margin: 40px 0;
+  text-align: left;
+}
+
+.score-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  margin: 10px 0;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--badge);
+  transition: all 0.3s ease;
+}
+
+.score-item:first-child {
+  border-color: var(--brass);
+  background: rgba(212, 168, 83, 0.1);
+}
+
+.score-item span:first-child {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+}
+
+.score {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--brass);
+}
+
+.next-round {
+  font-family: var(--font-mono);
+  font-style: italic;
+  margin-top: 40px;
+  color: var(--badge);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIMER
+   ═══════════════════════════════════════════════════════════ */
+.timer {
+  text-align: center;
+  margin: 35px 0;
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--badge);
+  position: relative;
+}
+
+.timer::before {
+  content: '⏱';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  background: var(--smoke);
+  padding: 0 15px;
+}
+
+.time {
+  font-family: var(--font-mono);
+  font-size: 3.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--parchment);
+}
+
+.timer.warning {
+  border-color: var(--crime);
+  animation: timerWarning 1s ease-in-out infinite;
+}
+
+.timer.warning .time {
+  color: var(--crime);
+}
+
+@keyframes timerWarning {
+  0%, 100% { box-shadow: 0 0 20px rgba(139, 58, 58, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(139, 58, 58, 0.6); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FORM GROUPS
+   ═══════════════════════════════════════════════════════════ */
+.form-group {
+  margin: 25px 0;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--brass);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ERROR TOAST
+   ═══════════════════════════════════════════════════════════ */
+.error-toast {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: var(--crime);
+  color: var(--parchment);
+  padding: 20px 35px;
+  border: 2px solid var(--parchment);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: toastSlide 0.4s ease-out;
+  z-index: 2000;
+}
+
+@keyframes toastSlide {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--inkwell);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--badge);
+  border: 2px solid var(--inkwell);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brass);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+/* Typewriter effect for text */
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 2s steps(40, end);
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Flicker effect for phase changes */
+.flicker {
+  animation: flicker 0.3s ease-in-out;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+  75% { opacity: 0.2; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  #app {
+    padding: 20px 15px;
+  }
+
+  .case-file {
+    padding: 35px 25px;
+  }
+
+  .case-file::before {
+    font-size: 0.65rem;
+    left: 20px;
+  }
+
+  .case-file::after {
+    font-size: 0.8rem;
+    top: 50px;
+    right: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .game-title {
+    font-size: 3rem;
+    letter-spacing: 0.15em;
+  }
+
+  .menu-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .menu-buttons button {
+    width: 100%;
+  }
+
+  .room-code .code {
+    font-size: 2.5rem;
+    letter-spacing: 0.2em;
+  }
+
+  .player-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .alibi-preview {
+    max-width: 100%;
+  }
+
+  .ask-question,
+  .answer-input {
+    flex-direction: column;
+  }
+
+  .ask-question button,
+  .answer-input button {
+    width: 100%;
+  }
+
+  .guilty-player {
+    font-size: 1.8rem;
+    padding: 20px 30px;
+  }
+
+  .time {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body::before {
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent 0px,
+      transparent 20px,
+      rgba(0, 0, 0, 0.1) 20px,
+      rgba(0, 0, 0, 0.1) 22px
+    );
+  }
+
+  .game-title {
+    font-size: 2.2rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+}
